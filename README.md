@@ -1,15 +1,20 @@
 # Saagievements (Saagie Achievements)
 
-This is Saagievements, a web application to add new achievements and unlock them
-on click. The purpose of this application is to test new applicant's skills.
+## DONE
 
-## TODO
+- [x] [Download sources](https://github.com/saagie/saagievements/archive/master.zip), please do not fork the repository.
+- [x] Unlock an achievement on click (`POST /api/achievement/{id}/unlock`)
+- [x] Create a form to add an achievement
+- [x] Create a new achievement `POST /api/achievement` with a payload like `{'goal': 'This is a new achievement'}`
+- [x] Surprise us in all ways 😉
 
-- [ ] [Download sources](https://github.com/saagie/saagievements/archive/master.zip), please do not fork the repository.
-- [ ] Unlock an achievement on click (`POST /api/achievement/{id}/unlock`)
-- [ ] Create a form to add an achievement
-- [ ] Create a new achievement `POST /api/achievement` with a payload like `{'goal': 'This is a new achievement'}`
-- [ ] Surprise us in all ways 😉
+## ADDED
+
+- [x] Users are able to lock again achievements. A confirm window prevents mistakes.
+- [x] Usage of Saagie design system.
+- [x] New achievement: back-end checks for duplicates before adding to the list
+- [x] Filter button to avoid clutter on achievements list
+- [x] Graph/Tree view: mutate the original achievement object to be readable by React Flow. To be continued... :)
 
 ## Resources
 
