@@ -1,7 +1,10 @@
-// TODO: add a form to create new achievement
 import React from "react";
 import { Link } from "react-router-dom";
-import { AppLayoutPage, PageHeader, FormGroup, Container, Icon } from "saagie-ui/react";
+import {
+  AppLayoutPage,
+  PageHeader,
+  FormGroup,
+} from "saagie-ui/react";
 
 export class NewAchievement extends React.Component {
   constructor(props) {
@@ -12,6 +15,15 @@ export class NewAchievement extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // TODO: enable CORS to use external API - zenquotes as text for FormGroup 'helper' 
+
+  //   componentDidMount() {
+  //     fetch("https://zenquotes.io/api/random", {  headers: {
+  //         'Access-Control-Allow-Origin':'*'
+  //       }})
+  //       .then((response) => console.log(response))
+
+  //   }
   handleChange(event) {
     let valid = event.target.value.length >= 3;
     this.setState({ value: event.target.value, valid: valid });
@@ -19,7 +31,6 @@ export class NewAchievement extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,11 +38,10 @@ export class NewAchievement extends React.Component {
     };
 
     fetch(`/api/achievement`, requestOptions).then((response) => {
-      console.log(response.status);
       if (response.status === 303) {
         return window.alert("This exact achievement already exists !");
       }
-      alert(
+      window.alert(
         `Your achievement "${this.state.value}" has been successfully added to the list !`
       );
 
@@ -44,43 +54,54 @@ export class NewAchievement extends React.Component {
       <div className="sui-l-app-layout">
         <div className="sui-l-app-layout__subapp">
           <AppLayoutPage>
+          <a href="https://www.saagie.com">
+              <img
+                width="200"
+                src="https://www.saagie.com/wp-content/uploads/2020/07/Logo-Web-Retina@2x.png"
+                alt="Saagie-logo"
+              />
+            </a>
             <PageHeader title="New SaagieVement">
-              <Link to="/" className="sui-a-button as--primary">
+              <Link to="/" className="sui-a-button as--default">
                 Back to my list
               </Link>
             </PageHeader>
             <h3>State your new achievement in the field below</h3>
-              <form onSubmit={this.handleSubmit}>
-                <FormGroup
-                  label="Enter a new goal"
-                  helper="Inspire yourself !"
-                  validationState={this.state.valid ? "success" : "warning"}
-                  feedbackMessage={
-                    !this.state.valid &&
-                    "Your achievement need at least 3 characters"
-                  }
-                >
-                  <input
-                    type="text"
-                    className="sui-a-form-control"
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                  />
-                </FormGroup>
-                <div className="sui-g-grid as--auto">
-                  <div className="sui-g-grid__item">
-                    <button
-                      type="submit"
-                      className="sui-a-button as--block as--primary"
-                    >
-                      Confirm
-                    </button>
+            <div className="sui-g-grid as--center">
+              <div className="sui-g-grid__item as--1_2">
+                <form onSubmit={this.handleSubmit}>
+                  <FormGroup
+                    label="Enter a new goal"
+                    helper="Inspire yourself !"
+                    validationState={this.state.valid ? "success" : "warning"}
+                    feedbackMessage={
+                      !this.state.valid &&
+                      "Your achievement need at least 3 characters"
+                    }
+                  >
+                    <input
+                      type="text"
+                      className="sui-a-form-control"
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                      required={true}
+                      minLength="3"
+                    />
+                  </FormGroup>
+                  <div className="sui-g-grid as--auto">
+                    <div className="sui-g-grid__item">
+                      <button
+                        type="submit"
+                        className="sui-a-button as--block as--primary"
+                      >
+                        Confirm
+                      </button>
+                    </div>
+                    <div className="sui-g-grid__item as--pull"></div>
                   </div>
-                  <div className="sui-g-grid__item as--pull">
-                    <button className="sui-a-button as--block">Cancel</button>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
+            </div>
           </AppLayoutPage>
         </div>
       </div>

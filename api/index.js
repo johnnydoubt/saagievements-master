@@ -11,6 +11,7 @@ let achievements = [
     goal: "Unlock achievement on click (POST to /api/achievement/{id}/unlock)",
     unlocked: false,
   },
+
   {
     id: 1,
     goal: "Create a form to add an achievement",
@@ -44,13 +45,44 @@ app.get("/api/achievements", (_, res) => {
   res.json(achievements);
 });
 
+app.get("/api/tree", (_, res) => {
+  // TODO: Scale this up. This is for demo purposes :)
+  let achievementsAsTree = [];
+  achievements.forEach(function (achievement, i) {
+    let currentId = JSON.stringify(i);
+    let nextId = JSON.stringify(i + 1);
+    let type;
+    if (i === 0) {
+      type = "input";
+    } else if (achievements.length - 1 === i) {
+      type = "output";
+    }
+    achievementsAsTree.push({
+      id: currentId,
+      data: {
+        label: achievement.goal,
+      },
+      type,
+      position: { y: 250 - Math.random() * 200, x: i * 250 },
+      sourcePosition: 'right',
+      targetPosition: 'left'
+    });
+    if (achievements.length - 1 !== i) {
+      achievementsAsTree.push({
+        id: currentId + "-" + nextId,
+        source: currentId,
+        target: nextId,
+      });
+    }
+  });
+  res.json(achievementsAsTree);
+});
+
 app.post("/api/achievement", (req, res) => {
   // check for duplicate entry from the user
-  console.log('coucou')
   const achievementAlreadyExists = achievements.find(
     (item) => item.goal === req.body.goal
   );
-  console.log(achievementAlreadyExists)
   if (achievementAlreadyExists) {
     return res.sendStatus(303);
   }
@@ -67,7 +99,6 @@ app.post("/api/achievement", (req, res) => {
 
 app.post("/api/achievement/:id/unlock", (req, res) => {
   const achievementId = parseInt(req.params.id, 10);
-  console.log(`unlocking achievement ${achievementId}`);
 
   const achievement = achievements.filter((item) => item.id === achievementId);
 
@@ -80,8 +111,6 @@ app.post("/api/achievement/:id/unlock", (req, res) => {
     ...item,
     unlocked: item.id === achievementId ? !item.unlocked : item.unlocked,
   }));
-
-  console.log(achievements);
 
   res.sendStatus(200);
 });
