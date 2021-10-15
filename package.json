@@ -5,11 +5,13 @@
   "dependencies": {
     "eslint-config-airbnb": "18.0.1",
     "express": "4.17.1",
+    "formsy-react": "^2.2.5",
     "node-sass": "^4.13.1",
     "nodemon": "1.19.4",
     "npm-run-all": "^4.1.5",
     "react": "16.10.2",
     "react-dom": "16.10.2",
+    "react-flow-renderer": "^9.6.9",
     "react-router-dom": "5.1.2",
     "react-scripts": "^3.2.0",
     "saagie-ui": "^0.52.0"
@@ -19,7 +21,7 @@
     "start-api-watch": "nodemon api/index.js",
     "start-api": "node api/index.js",
     "start-react": "react-scripts start",
-    "start": "npm-run-all --parallel start-api start-react",
+    "start": "npm-run-all --parallel start-api-watch start-react",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
