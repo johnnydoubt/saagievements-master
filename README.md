@@ -6,7 +6,7 @@
 - [x] Unlock an achievement on click (`POST /api/achievement/{id}/unlock`)
 - [x] Create a form to add an achievement
 - [x] Create a new achievement `POST /api/achievement` with a payload like `{'goal': 'This is a new achievement'}`
-- [x] Surprise us in all ways 😉
+- [x] Surprise us in all ways 😉 (hope I did)
 
 ## ADDED
 
@@ -14,7 +14,7 @@
 - [x] Usage of Saagie design system.
 - [x] New achievement: back-end checks for duplicates before adding to the list
 - [x] Filter button to avoid clutter on achievements list
-- [x] Graph/Tree view: mutate the original achievement object to be readable by React Flow. To be continued... :)
+- [x] Graph/Tree view: mutate the original achievement array to be readable by React Flow. To be continued... :)
 
 ## Resources
 
